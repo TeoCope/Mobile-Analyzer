@@ -56,26 +56,17 @@ $(document).ready(() => {
   var optionsList = {
     valueNames: ['address','idDevice','site_name','node_id'],
     item: /* '<button type="button" class="list-group-item list-group-item-action"><strong class="address"></strong><br><p class="idDevice"></p><br><p class="IMEI"></p></button>' */ (item) => {
-      return '<button type="button" class="list-group-item list-group-item-action"><strong class="address">' + item.address + '</strong><br><p class="mb-0">' + item.idDevice + '</p></button>';
+      return '<button type="button" class="list-group-item list-group-item-action" onclick="effettuaZoom('+ item.latitudine + ',' + item.longitudine + ')"><strong class="address">' + item.address + '</strong><br><p class="mb-0">' + item.idDevice + '</p></button>';
     }
   }
 
   var antenneList = new List('antenne',optionsList, antenneAtos);
-
-  $('#searchInput').on('input', function() {
-    $("#searchResults").dropdown("show");
-    // Ottieni il valore inserito nell'input
-    var searchValue = $(this).val();
-
-    console.log(searchValue);
-    var result = [];
-    var resultAtos = antenneAtos.filter((oggetto) => {
-      return oggetto.idDevice.includes(searchValue);
-    })
-
-    console.log(resultAtos);
-  });
 });
+
+function effettuaZoom(latitudine, longitudine) {
+  $("#offcanvasSearch").offcanvas("hide");
+  map.setView([latitudine, longitudine], 15);
+}
 
 function setAntennaVodafone(antenna) {
   $("#infoVodafone").empty();
