@@ -10,6 +10,17 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
+var LeafIcon = L.Icon.extend({
+  options: {
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -16],
+  },
+});
+
+var vodafoneIcon = new LeafIcon({ iconUrl: "./leaflet/images/antennaVodafone.png" });
+var atosIcon = new LeafIcon({ iconUrl: "./leaflet/images/nodoAtos.png" });
+
 L.control.scale("metric").addTo(map);
 
 var polylines = []
@@ -18,10 +29,9 @@ function setPolyline(nodeId, marker){
     var antenna = antenneVodafone.find((oggetto) => {
       return oggetto.node_id === nodeId;
     })
-    console.log(antenna);
+
     var latLngAtos = marker.getLatLng();
     var latLngVodafone = [antenna.cell_lat, antenna.cell_long];
-    console.log(latLngVodafone);
 
     var latlngs = [latLngAtos, latLngVodafone];
 
@@ -33,3 +43,9 @@ function destroyPolyline(){
     polyline.remove();
   })
 }
+
+L.control.tagFilterButton({
+	data: ['atos', 'vodafone', 'tim'],
+  filterOnEveryClick: true,
+  icon: '<img src="./leaflet/images/filter.png" style="width: 16px; height: 16pxpx"/>',
+}).addTo(map);

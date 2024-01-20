@@ -11,19 +11,40 @@ $("#cells").on("click", () => {
 })
 var markersAtos = [];
 var markersVodafone = [];
+var markersTim = [];
 
 $(document).ready(() => {
+
   if (map !== null) {
     antenneAtos.forEach((antenna) => {
       var marker = L.marker([antenna.latitudine, antenna.longitudine], {
         icon: atosIcon,
-      }).addTo(map);
+        tags: ['atos'],
+      }).addTo(map).bindTooltip("<b>" + antenna.idDevice + "</b>", {
+        permanent: true,
+        direction: 'bottom',
+      });
       markersAtos.push(marker);
     })
     antenneVodafone.forEach((antenna) => {
-      markersVodafone.push(L.marker([antenna.cell_lat, antenna.cell_long], {
+      var marker = L.marker([antenna.cell_lat, antenna.cell_long], {
         icon: vodafoneIcon,
-      }).addTo(map))
+        tags: ['vodafone'],
+      }).addTo(map).bindTooltip('<b>' + antenna.node_id + '</b> <img style="width: 16px; height:16px;" src="./leaflet/images/vodafoneLogo.svg"/>', {
+        permanent: true,
+        direction: 'bottom',
+      }).openTooltip()
+      markersVodafone.push(marker);
+    })
+    antenneTim.forEach((antenna) => {
+      var marker = L.marker([antenna.cell_lat, antenna.cell_long], {
+        icon: vodafoneIcon,
+        tags: ['tim'],
+      }).addTo(map).bindTooltip('<b>' + antenna.node_id + '</b> <img style="width: 16px; height:16px;" src="./leaflet/images/timLogo.svg"/>', {
+        permanent: true,
+        direction: 'bottom',
+      }).openTooltip()
+      markersTim.push(marker);
     })
   }
 
@@ -54,13 +75,19 @@ $(document).ready(() => {
   }
 
   var optionsList = {
-    valueNames: ['address','idDevice','site_name','node_id'],
-    item: /* '<button type="button" class="list-group-item list-group-item-action"><strong class="address"></strong><br><p class="idDevice"></p><br><p class="IMEI"></p></button>' */ (item) => {
-      return '<button type="button" class="list-group-item list-group-item-action" onclick="effettuaZoom('+ item.latitudine + ',' + item.longitudine + ')"><strong class="address">' + item.address + '</strong><br><p class="mb-0">' + item.idDevice + '</p></button>';
+    valueNames: ['address', 'idDevice'],
+    item: (item) => {
+      var lat = item.latitudine;
+      var long = item.longitudine;
+      var adrs = item.address;
+      var id = item.idDevice;
+
+      return '<button type="button" class="list-group-item list-group-item-action" onclick="effettuaZoom(' + lat + ',' + long + ')"><strong>' + adrs + '</strong><br><p class="mb-0">' + id + '</p></button>';
     }
+
   }
 
-  var antenneList = new List('antenne',optionsList, antenneAtos);
+  var antenneList = new List('antenne', optionsList, antenneAtos);
 });
 
 function effettuaZoom(latitudine, longitudine) {
@@ -106,31 +133,34 @@ function setData(node) {
 }
 
 function setCells(cells) {
-  $("#cells").empty();
+  $("#cellsButtons").empty();
   for (index in cells) {
     var currentCell = cells[index];
     var nodeId = currentCell["nodeId"];
     var cid = currentCell["cid"];
 
     function createClickHandler(nodeId, cid, phyParms) {
+
       return function () {
         setPhyParam(nodeId, cid, phyParms);
       };
     }
 
-    var cell = $("<li>", {
+    var cell = $("<button>", {
       id: "cell" + index,
-      class: "list-group-item d-flex justify-content-between align-items-center",
+      class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center",
       html: "<b>Node Id:</b> " + nodeId + "<br><b>CID:</b> " + cid,
       click: createClickHandler(nodeId, cid, currentCell['phyParms']),
+      "data-bs-toggle": "list",
+      role: "tab"
     });
 
     var span = $("<span>", {
-      class: "badge bg-primary rounded-pill",
+      class: "badge bg-secondary rounded-pill",
       text: currentCell["phyParms"].length,
     })
 
-    $("#cells").append(cell);
+    $("#cellsButtons").append(cell);
     cell.append(span);
   }
 }
@@ -155,8 +185,23 @@ function setCellsVodafone(cells) {
       "data-bs-target": "#collapse" + index,
       "aria-expanded": false,
       "aria-controls": "collapse" + index,
-      html: "<b>Cella ID:</b> " + cell.cid
     })
+
+    var label = $("<div>", {
+      class: "d-flex flex-column align-item-stretch",
+    })
+
+    var cellId = $("<p>", {
+      class: "m-0 p-0"
+    }).html("<b>Cella ID:</b> " + cell.cid);
+    var cellName = $("<figcaption>", {
+      class: "blockquote-footer m-0 p-0"
+    }).html(cell.cell_name);
+
+    label.append(cellId)
+      .append(cellName);
+
+    button.append(label);
 
     accordionHeader.append(button);
     accordionItem.append(accordionHeader);
@@ -229,11 +274,12 @@ function setPhyParam(nodeId, cid, phyParam) {
 
 function setPath(cells, marker) {
   cells.forEach((cell) => {
-    cell["phyParms"].forEach((phyParam) => {
-      if (phyParam.inUse) {
-        setPolyline(cell.nodeId, marker);
-      }
-    })
+    var lastMeasure = cell["phyParms"].length - 1;
+    //cell["phyParms"].forEach((phyParam) => {
+    if (cell.phyParms[lastMeasure].inUse) {
+      setPolyline(cell.nodeId, marker);
+    }
+    //})
   })
 }
 

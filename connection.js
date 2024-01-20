@@ -1,19 +1,10 @@
 var jsonVodafonePath = "vodafone_ridotto.json";
 var jsonAtosPath = "atos.json";
+var jsonTimPath = "tim-ridotto.json";
 
 var antenneVodafone;
+var antenneTim;
 var antenneAtos;
-
-var LeafIcon = L.Icon.extend({
-    options: {
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, -16],
-    },
-  });
-
-var vodafoneIcon = new LeafIcon({ iconUrl: "./icon/antennaVodafone.png"});
-var atosIcon = new LeafIcon({ iconUrl: "./icon/antennaAtos.png"});
 
 $.ajax({
   url: jsonVodafonePath,
@@ -34,6 +25,18 @@ $.ajax({
   dataType: "json",
   success: (jsonData) => {
     antenneAtos = jsonData;
+  },
+  error: (error) => {
+    console.log(error);
+  }
+})
+
+$.ajax({
+  url: jsonTimPath,
+  method: "GET",
+  dataType: "json",
+  success: (jsonData) => {
+    antenneTim = jsonData;
   },
   error: (error) => {
     console.log(error);

@@ -24,9 +24,9 @@
       {
         "tech": "LTE","nodeId": 59013,"cid": 42,"band": "B1","arfcn": 525,           
         "phyParms": [ 
-            {"date": "24/01/01,01:20:03","inUse": true,"rsrp": -104,"rsrq": -11,"sinr": 10},
+            {"date": "24/01/01,01:20:03","inUse": false,"rsrp": -104,"rsrq": -11,"sinr": 10},
             {"date": "24/01/02,01:22:07","inUse": false,"rsrp": -104,"rsrq": -11,"sinr": 10},
-            {"date": "24/01/03,01:21:06","inUse": false,"rsrp": -105,"rsrq": -11,"sinr": 10}
+            {"date": "24/01/03,01:21:06","inUse": true,"rsrp": -105,"rsrq": -11,"sinr": 10}
           ]
       },
       {

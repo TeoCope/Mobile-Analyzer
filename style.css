@@ -29,3 +29,13 @@ html {
 .floatDiv{
   z-index: 1000;
 }
+
+.cell-true{
+  background-color: green;
+  color: white;
+}
+
+.cell-false{
+  background-color: red;
+  color: white;
+}
