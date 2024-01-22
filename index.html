@@ -80,7 +80,7 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>colonna1</td>
+                        <td class="cell-red">colonna1</td>
                         <td>colonna2</td>
                         <td>colonna3</td>
                         <td>colonna4</td>
@@ -139,14 +139,13 @@
           <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">Filtra per</button>
           <ul class="dropdown-menu dropdown-menu-end" id="searchOption" role="tablist">
-            <li><a type="button" class="dropdown-item" href="#nodiAtos">Atos</a></li>
-            <li><a class="dropdown-item" href="#nodiVodafone">Vodafone</a></li>
+            <li><button id="atosButtonSearch" type="button" class="dropdown-item">Atos</button></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><button id="vodafoneButtonSearch" type="button" class="dropdown-item">Vodafone</button></li>
+            <li><button id="timButtonSearch" type="button" class="dropdown-item">Tim</button></li>
           </ul>
         </div>
-        <div class="tab-content" id="searchResult">
-          <div id="nodiAtos" class="list-group list-group-flush list tab-pane fade show active"></div>
-          <div id="nodiVodafone" class="list-group list-group-flush tab-pane fade list"></div>
-        </div>
+        <ul class="list list-group list-group-flush"></ul>
       </div>
     </div>
   </div>

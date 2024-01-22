@@ -7,5 +7,19 @@ const Utils = {
 
     listItem: (key = "",text) => {
       return $("<li>").html("<b>" + key + ":</b> " + text);
+    },
+
+    checkPhyParms: (antenna) => {
+      var error = false
+      var celle = antenna["cells"]
+      for (i in celle) {
+        var phyParam = celle[i]["phyParms"]
+        for (j in phyParam){
+          if (phyParam[j].rsrp < -100 || phyParam[j].rsrq < -20 || phyParam[j].sinr < 0){
+            error = true
+          }
+        }
+      }
+      return error
     }
   };

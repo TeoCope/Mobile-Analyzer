@@ -39,3 +39,7 @@ html {
   background-color: red;
   color: white;
 }
+
+.cell-red{
+  background-color: red !important;
+}

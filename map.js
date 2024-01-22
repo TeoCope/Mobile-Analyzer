@@ -1,7 +1,7 @@
-var map = L.map("map",{
-    center: [43.6112377, 13.3938954],
-    zoom: 12,
-    closePopupOnClick: false,
+var map = L.map("map", {
+  center: [43.6112377, 13.3938954],
+  zoom: 12,
+  closePopupOnClick: false,
 });
 
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -25,27 +25,27 @@ L.control.scale("metric").addTo(map);
 
 var polylines = []
 
-function setPolyline(nodeId, marker){
-    var antenna = antenneVodafone.find((oggetto) => {
-      return oggetto.node_id === nodeId;
-    })
+function setPolyline(nodeId, marker) {
+  var antenna = antenneVodafone.find((oggetto) => {
+    return oggetto.node_id === nodeId;
+  })
 
-    var latLngAtos = marker.getLatLng();
-    var latLngVodafone = [antenna.cell_lat, antenna.cell_long];
+  var latLngAtos = marker.getLatLng();
+  var latLngVodafone = [antenna.cell_lat, antenna.cell_long];
 
-    var latlngs = [latLngAtos, latLngVodafone];
+  var latlngs = [latLngAtos, latLngVodafone];
 
-    polylines.push(L.polyline(latlngs, {color: 'red'}).addTo(map));
+  polylines.push(L.polyline(latlngs, { color: 'red' }).addTo(map));
 }
 
-function destroyPolyline(){
+function destroyPolyline() {
   polylines.forEach((polyline) => {
     polyline.remove();
   })
 }
 
 L.control.tagFilterButton({
-	data: ['atos', 'vodafone', 'tim'],
+  data: ['atos', 'vodafone', 'tim','allert'],
   filterOnEveryClick: true,
   icon: '<img src="./leaflet/images/filter.png" style="width: 16px; height: 16pxpx"/>',
 }).addTo(map);

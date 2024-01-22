@@ -17,13 +17,24 @@ $(document).ready(() => {
 
   if (map !== null) {
     antenneAtos.forEach((antenna) => {
-      var marker = L.marker([antenna.latitudine, antenna.longitudine], {
-        icon: atosIcon,
-        tags: ['atos'],
-      }).addTo(map).bindTooltip("<b>" + antenna.idDevice + "</b>", {
-        permanent: true,
-        direction: 'bottom',
-      });
+      var marker
+      if (Utils.checkPhyParms(antenna)) {
+        marker = L.marker([antenna.latitudine, antenna.longitudine], {
+          icon: atosIcon,
+          tags: ['atos', 'allert'],
+        }).addTo(map).bindTooltip("<div class='container position-relative'><p class='m-0'><b>" + antenna.idDevice + "</b><span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>!</span></p></div>", {
+          permanent: true,
+          direction: 'bottom',
+        });
+      } else {
+        marker = L.marker([antenna.latitudine, antenna.longitudine], {
+          icon: atosIcon,
+          tags: ['atos'],
+        }).addTo(map).bindTooltip("<b>" + antenna.idDevice + "</b>", {
+          permanent: true,
+          direction: 'bottom',
+        });
+      }
       markersAtos.push(marker);
     })
     antenneVodafone.forEach((antenna) => {
@@ -74,7 +85,7 @@ $(document).ready(() => {
     })
   }
 
-  var optionsList = {
+  var options = {
     valueNames: ['address', 'idDevice'],
     item: (item) => {
       var lat = item.latitudine;
@@ -84,10 +95,59 @@ $(document).ready(() => {
 
       return '<button type="button" class="list-group-item list-group-item-action" onclick="effettuaZoom(' + lat + ',' + long + ')"><strong>' + adrs + '</strong><br><p class="mb-0">' + id + '</p></button>';
     }
-
   }
 
-  var antenneList = new List('antenne', optionsList, antenneAtos);
+  var antenneList = new List('antenne', options, antenneAtos);
+
+  $("#atosButtonSearch").on("click", () => {
+    var options = {
+      valueNames: ['address', 'idDevice'],
+      item: (item) => {
+        var lat = item.latitudine;
+        var long = item.longitudine;
+        var adrs = item.address;
+        var id = item.idDevice;
+
+        return '<button type="button" class="list-group-item list-group-item-action" onclick="effettuaZoom(' + lat + ',' + long + ')"><strong>' + adrs + '</strong><br><p class="mb-0">' + id + '</p></button>';
+      }
+    }
+    antenneList.clear();
+    antenneList = new List('antenne', options, antenneAtos)
+  })
+
+  $("#vodafoneButtonSearch").on("click", () => {
+    var options = {
+      valueNames: ['site_name', 'node_id'],
+      item: (item) => {
+        var lat = item.cell_lat;
+        var long = item.cell_long;
+        var adrs = item.site_name;
+        var id = item.node_id;
+
+        return '<button type="button" class="list-group-item list-group-item-action" onclick="effettuaZoom(' + lat + ',' + long + ')"><strong>' + adrs + '</strong><br><p class="mb-0">' + id + '</p></button>';
+      }
+    }
+
+    antenneList.clear();
+    antenneList = new List('antenne', options, antenneVodafone)
+  })
+
+  $("#timButtonSearch").on("click", () => {
+    var options = {
+      valueNames: ['site_name', 'node_id'],
+      item: (item) => {
+        var lat = item.cell_lat;
+        var long = item.cell_long;
+        var adrs = item.site_name;
+        var id = item.node_id;
+
+        return '<button type="button" class="list-group-item list-group-item-action" onclick="effettuaZoom(' + lat + ',' + long + ')"><strong>' + adrs + '</strong><br><p class="mb-0">' + id + '</p></button>';
+      }
+    }
+
+    antenneList.clear();
+    antenneList = new List('antenne', options, antenneTim)
+  })
 });
 
 function effettuaZoom(latitudine, longitudine) {
@@ -146,11 +206,13 @@ function setCells(cells) {
       };
     }
 
+    var phyParms = currentCell['phyParms']
+
     var cell = $("<button>", {
       id: "cell" + index,
       class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center",
       html: "<b>Node Id:</b> " + nodeId + "<br><b>CID:</b> " + cid,
-      click: createClickHandler(nodeId, cid, currentCell['phyParms']),
+      click: createClickHandler(nodeId, cid, phyParms),
       "data-bs-toggle": "list",
       role: "tab"
     });
@@ -275,11 +337,9 @@ function setPhyParam(nodeId, cid, phyParam) {
 function setPath(cells, marker) {
   cells.forEach((cell) => {
     var lastMeasure = cell["phyParms"].length - 1;
-    //cell["phyParms"].forEach((phyParam) => {
     if (cell.phyParms[lastMeasure].inUse) {
       setPolyline(cell.nodeId, marker);
     }
-    //})
   })
 }
 

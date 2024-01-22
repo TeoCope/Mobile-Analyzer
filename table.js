@@ -4,13 +4,19 @@ $(document).ready(function () {
     table = $("#infoTabella").DataTable({
         paging: false,
         searching: false,
-        info: false
+        info: false,
+        rowCallback:(row,data,index) => {
+            if (data[2] < -100) {
+                $(row).find('td:eq(2)').addClass("table-danger");
+            }
+            if (data[3] < -20) {
+                $(row).find('td:eq(2)').addClass("table-danger");
+            }
+            if (data[4] < -0) {
+                $(row).find('td:eq(4)').addClass("table-danger");
+            }
+        }
     });
-
-    var cell = table.cell({row: 1, column: 3});
-    cell.node().classList.add('cell-true');
-
-    table.draw();
 })
 
 function changeTableData(newData) {
