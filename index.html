@@ -6,29 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mobile Analyzer - prototipo di una dashboard per monitoraggio real-time dei dati di connessione</title>
   <!-- Leaflet css -->
-  <link rel="stylesheet" href="leaflet/leaflet.css" />
-  <link rel="stylesheet" href="leaflet/leaflet-tag-filter-button.css" />
-  <link rel="stylesheet" href="leaflet/leaflet-easy-button.css" />
+  <link rel="stylesheet" href="./assets/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="./assets/leaflet/leaflet-tag-filter-button.css" />
+  <link rel="stylesheet" href="./assets/leaflet/leaflet-easy-button.css" />
   <!-- My css -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
   <!-- BootStrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <!-- Data Tables -->
-  <link rel="stylesheet" href="DataTables/datatables.css">
+  <link rel="stylesheet" href="./assets/DataTables/datatables.css">
 
   <!-- Leaflet js-->
-  <script src="leaflet/leaflet.js"></script>
-  <script src="leaflet/leaflet-easy-button.js"></script>
-  <script src="leaflet/leaflet-tag-filter-button.js"></script>
+  <script src="./assets/leaflet/leaflet.js"></script>
+  <script src="./assets/leaflet/leaflet-easy-button.js"></script>
+  <script src="./assets/leaflet/leaflet-tag-filter-button.js"></script>
   <!-- JQuery -->
-  <script src="jquery.js"></script>
+  <script src="./assets/js/jquery.js"></script>
+  <!-- Chrom js -->
+  <script src="./assets/js/chroma.min.js"></script>
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <!-- Data Tables -->
-  <script src="DataTables/datatables.js"></script>
+  <script src="./assets/DataTables/datatables.js"></script>
   <!-- List js -->
-  <script src="list.js"></script>
+  <script src="./assets/js/list.js"></script>
   <!-- My js -->
   <script src="connection.js"></script>
   <script src="utils.js"></script>
@@ -41,7 +43,7 @@
     <div id="header" class="d-flex flex justify-content-between align-items-center container-fluid">
       <button class="btn btn-outline-dark mb-0" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
-        <h4 class="m-0">Cerca</h4>
+        <h4 class="m-0">Search</h4>
       </button>
       <h4 class="m-0 p-0 display-6">Mobile Analyzer</h4>
     </div>
@@ -57,39 +59,29 @@
             aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="container">
-            <div class="row">
-              <div id="cells" class="col-4 border-end">
-                <div class="list-group" id="cellsButtons" role="tablist"></div>
-              </div>
-              <div id="cellContainer" class="col-8 align-self-center">
-                <div id="infoCell"></div>
-                <div id="chartContainer" style="display: none;">
-                  <canvas id="chart"></canvas>
+          <ul class="nav nav-underline">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pag1-tab" data-bs-toggle="tab" data-bs-target="#pag1-panel"
+                type="button" role="tab" aria-controls="pag1-panel" aria-selected="true">Details</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pag2-tab" data-bs-toggle="tab" data-bs-target="#pag2-panel" type="button"
+                role="tab" aria-controls="pag2-panel" aria-selected="false">Aggregate</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="pag1-panel" role="tablist" aria-labelledby="pag1-panel">
+              <div class="row">
+                <div id="cells" class="col-4 pt-2">
+                  <div class="list-group list-group-flush text-center" id="cellsButtons" role="tablist"></div>
                 </div>
-                <div id="tabCell" style="display: none;">
-                  <table id="infoTabella" class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Data</th>
-                        <th>In Uso</th>
-                        <th>RSRP</th>
-                        <th>RSRQ</th>
-                        <th>SINR</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="cell-red">colonna1</td>
-                        <td>colonna2</td>
-                        <td>colonna3</td>
-                        <td>colonna4</td>
-                        <td>colonna5</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="col-8 pt-2" id="cellInfo">
+                  <div class="tab-content" id="cell-tabContent"></div>
                 </div>
               </div>
+            </div>
+            <div class="tab-pane fade container" id="pag2-panel" role="tablist" aria-labelledby="pag2-panel">
+              <div class="row justify-content-center" id="pag2-content"></div>
             </div>
           </div>
         </div>
@@ -98,31 +90,28 @@
   </div>
   </div>
 
-  <div id="modalVodafone" class="modal fade" tabindex="-1" aria-labelledby="modalVodafone" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centerd">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div id="infoVodafone"></div>
-          <button id="closeButtonVodafone" type="button" class="btn-close" data-bs-dismiss="modal"
-            aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="accordion accordion-flush" id="vodafoneCells"></div>
-        </div>
-      </div>
+  <div id="offcanvasTower" class="offcanvas offcanvas-end" data-bs-backdrop="false" tabindex="-1"
+    aria-labelledby="offcanvasTower" aria-hidden="true">
+    <div class="offcanvas-header">
+      <div id="infoVodafone"></div>
+      <button id="closeButtonVodafone" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+        aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="accordion accordion-flush" id="vodafoneCells"></div>
     </div>
   </div>
 
   <div class="dropup position-absolute bottom-0 end-0 m-3 floatDiv d-flex">
     <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#mapLegend"
       aria-controls="offcanvasBottom">
-      <h4 class="m-0 p-0">Legenda</h4>
+      <h4 class="m-0 p-0">Legend</h4>
     </button>
   </div>
 
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSearch" aria-labelledby="offcanvasSearchLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title display-6" id="offcanvasSearchLabel">Cerca</h4>
+      <h5 class="offcanvas-title display-6" id="offcanvasSearchLabel">Search</h4>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -135,12 +124,14 @@
                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
             </svg>
           </span>
-          <input type="text" class="search form-control" placeholder="Cerca..." />
+          <input type="text" class="search form-control" placeholder="Search..." />
           <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false">Filtra per</button>
+            aria-expanded="false">Filter</button>
           <ul class="dropdown-menu dropdown-menu-end" id="searchOption" role="tablist">
             <li><button id="atosButtonSearch" type="button" class="dropdown-item">Atos</button></li>
-            <li><hr class="dropdown-divider"></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li><button id="vodafoneButtonSearch" type="button" class="dropdown-item">Vodafone</button></li>
             <li><button id="timButtonSearch" type="button" class="dropdown-item">Tim</button></li>
           </ul>
@@ -157,11 +148,11 @@
     </div>
     <div class="offcanvas-body small d-flex flex-row justify-content-center">
       <div class="d-flex flex-direction-row align-items-center container me-1">
-        <img src="leaflet/images/nodoAtos.png" class="icon" alt="AntennaAtos">
+        <img src="./assets/leaflet/images/nodoAtos.png" class="icon" alt="AntennaAtos">
         <p class="h5 ms-1 mb-0">Nodo Atos</p>
       </div>
       <div class="d-flex flex-row align-items-center container">
-        <img src="leaflet/images/antennaVodafone.png" class="icon" alt="AntennaVodafone">
+        <img src="./assets/leaflet/images/antennaVodafone.png" class="icon" alt="AntennaVodafone">
         <p class=" h5 ms-1 mb-0">Antenna Vodafone</p>
       </div>
     </div>

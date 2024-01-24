@@ -1,0 +1,101 @@
+[
+  {
+    "address": "Via 1 Maggio, 26 60131 Ancona ",   
+    "latitude": 43.562896,  
+    "longitude": 13.509015, 
+    "idDevice": "BG8544E-00DOD6010101", 
+    "IMEI": "865991060002411",                
+    "IMSI": "222101640734931",                  
+    "ICCID": "8939104570011408091F",              
+    
+    "cells":[
+      {
+        "tech": "LTE","nodeId": 59005,"cid": 43,"MCC": "222", "MNC": "10","band": "B1","arfcn": 525,  
+        "phyParms": [ 
+                {"date": "24/01/01,01:32:00","inUse": false,"rsrp": -104,"rsrq": -13,"sinr": 12},
+                {"date": "24/01/02,01:33:00","inUse": false,"rsrp": -104,"rsrq": -11,"sinr": 10},
+                {"date": "24/01/03,01:34:00","inUse": false,"rsrp": -105,"rsrq": -11,"sinr": 10}
+          ]
+      },
+      {
+        "tech": "LTE","nodeId": 59013,"cid": 42,"MCC": "222", "MNC": "10","band": "B1","arfcn": 525,           
+        "phyParms": [ 
+            {"date": "24/01/01,01:20:03","inUse": false,"rsrp": -104,"rsrq": -11,"sinr": 10},
+            {"date": "24/01/02,01:22:07","inUse": false,"rsrp": -104,"rsrq": -11,"sinr": 10},
+            {"date": "24/01/03,01:21:06","inUse": false,"rsrp": -105,"rsrq": -11,"sinr": 10}
+          ]
+      },
+      {
+        "tech": "ENDC","nodeId": 59013,"cid": 12,"MCC": "222", "MNC": "10","band": "B20","arfcn": 6400,           
+        "phyParms": [ 
+            {"date": "24/01/01,01:40:36","inUse": false,"rsrp": -97,"rsrq": -14,"sinr": 10},
+            {"date": "24/01/02,01:41:32","inUse": false,"rsrp": -98,"rsrq": -15,"sinr": 7},
+            {"date": "24/01/03,01:42:35","inUse": false,"rsrp": -97,"rsrq": -14,"sinr": 10}
+          ]
+      },
+      {
+        "tech": "ENDC","nodeId": 55126,"cid": 32,"MCC": "222", "MNC": "10","band": "B3","arfcn": 1850,           
+        "phyParms": [ 
+            {"date": "24/01/01,01:43:36","inUse": false,"rsrp": -110,"rsrq": -20,"sinr": 3},
+            {"date": "24/01/02,01:45:32","inUse": false,"rsrp": -109,"rsrq": -19,"sinr": 4},
+            {"date": "24/01/03,01:48:35","inUse": false,"rsrp": -109,"rsrq": -19,"sinr": 3}
+          ]
+      },
+      {
+        "tech": "ENDC","nodeId": 59013,"cid": 32,"MCC": "222", "MNC": "10","band": "B3","arfcn": 1850,           
+        "phyParms": [ 
+            {"date": "24/01/01,01:43:36","inUse": false,"rsrp": -108,"rsrq": -19,"sinr": 5},
+            {"date": "24/01/02,01:45:32","inUse": false,"rsrp": -107,"rsrq": -19,"sinr": 7},
+            {"date": "24/01/03,01:48:35","inUse": false,"rsrp": -108,"rsrq": -19,"sinr": 9}
+          ]
+      }
+    ]
+  },
+  {
+    "address": "Via Allende, 3 60015 Falconara Marittima",   
+    "latitude": 43.608522,  
+    "longitude": 13.370905, 
+    "idDevice": "BG8544E-00DOD6983412", 
+    "IMEI": "865991060002411",                
+    "IMSI": "222101640734931",                  
+    "ICCID": "8939104570011408091F",              
+    
+    "cells": [   
+      {
+        "tech": "LTE","nodeId": 58293,"cid": 42,"MCC": "222", "MNC": "10","band": "B1","arfcn": 525,  
+        "phyParms": [ 
+              {"date": "24/01/01,01:53:31","inUse": false,"rsrp": -116,"rsrq": -10,"sinr": 13},
+              {"date": "24/01/02,01:52:27","inUse": false,"rsrp": -114,"rsrq": -10,"sinr": 14},
+              {"date": "24/01/03,01:54:28","inUse": true,"rsrp": -114,"rsrq": -10,"sinr": 14}
+        ]
+      },
+      {
+        "tech": "LTE","nodeId": 59450,"cid": 11,"MCC": "222", "MNC": "10","band": "B20","arfcn": 6400,           
+        "phyParms": [ 
+            {"date": "24/01/01,01:53:31","inUse": false,"rsrp": -107,"rsrq": -13,"sinr": 10},
+            {"date": "24/01/02,01:54:28","inUse": false,"rsrp": -107,"rsrq": -13,"sinr": 10},
+            {"date": "24/01/03,01:52:32","inUse": false,"rsrp": -107,"rsrq": -12,"sinr": 11}
+        ]
+      },
+      {
+        "tech": "LTE","nodeId": 59470,"cid": 13,"MCC": "222", "MNC": "10","band": "B20","arfcn": 6400,           
+        "phyParms": [ 
+            {"date": "24/01/01,01:53:31","inUse": false,"rsrp": -113,"rsrq": -16,"sinr": 7},
+            {"date": "24/01/02,01:54:28","inUse": false,"rsrp": -113,"rsrq": -18,"sinr": 6},
+            {"date": "24/01/03,01:52:32","inUse": false,"rsrp": -113,"rsrq": -18,"sinr": 7}
+        ]
+      },
+      {
+        "tech": "LTE","nodeId": 58293,"cid": 32,"MCC": "222", "MNC": "10","band": "B3","arfcn": 1850,           
+        "phyParms": [ 
+            {"date": "24/01/01,01:53:31","inUse": true,"rsrp": -109,"rsrq": -9,"sinr": 17},
+            {"date": "24/01/02,01:54:28","inUse": true,"rsrp": -109,"rsrq": -9,"sinr": 17},
+            {"date": "24/01/03,01:52:32","inUse": false,"rsrp": -109,"rsrq": -9,"sinr": 17}
+        ]
+      }
+    ]
+  }
+]
+    
+
+

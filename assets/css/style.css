@@ -1,0 +1,57 @@
+html {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+#wrapper{
+  height: 100vh;
+  width: 100vw;
+}
+
+#header{
+  height: 8%;
+}
+
+#map{
+  height: 92%;
+  width: 100%;
+}
+
+.icon{
+  width: 32px;
+  height: 32px;
+}
+
+.floatDiv{
+  z-index: 1000;
+}
+
+.cell-true{
+  background-color: green;
+  color: white;
+}
+
+.cell-false{
+  background-color: red;
+  color: white;
+}
+
+.cell-red{
+  background-color: red !important;
+  color: white !important;
+  font-weight: 700;
+}
+
+.cell-green{
+  background-color: green !important;
+  color: white !important;
+  font-weight: 700;
+}
+
+.cell-orange{
+  border: solid 3px orange
+}

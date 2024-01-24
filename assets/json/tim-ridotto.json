@@ -1,0 +1,100 @@
+[
+  {
+    "site_name": "Castelferretti Aeroporto Via Stazione",
+    "cell_lat": 43.6069669,
+    "cell_long": 13.3580994,
+    "node_id": 801831,
+    "cells": [
+      {
+        "tech": 3,
+        "mcc": 222,
+        "mnc": "01",
+        "lac_tac": 0,
+        "cid": 41,
+        "psc_pci": 0,
+        "band": 1800,
+        "arfcn": 1350,
+        "cell_name": "B3 S1 Castelferretti Aeroporto Via Stazione",
+        "azimuth": "",
+        "height": "",
+        "tilt_mech": "",
+        "tilt_el": ""
+      },
+      {
+        "tech": 3,
+        "mcc": 222,
+        "mnc": "01",
+        "lac_tac": 0,
+        "cid": 42,
+        "psc_pci": 0,
+        "band": 1800,
+        "arfcn": 1350,
+        "cell_name": "B3 S2 Castelferretti Aeroporto Via Stazione",
+        "azimuth": "",
+        "height": "",
+        "tilt_mech": "",
+        "tilt_el": ""
+      },
+      {
+        "tech": 3,
+        "mcc": 222,
+        "mnc": "01",
+        "lac_tac": 0,
+        "cid": 43,
+        "psc_pci": 0,
+        "band": 1800,
+        "arfcn": 1350,
+        "cell_name": "B3 S3 Castelferretti Aeroporto Via Stazione",
+        "azimuth": "",
+        "height": "",
+        "tilt_mech": "",
+        "tilt_el": ""
+      },
+      {
+        "tech": 3,
+        "mcc": 222,
+        "mnc": "01",
+        "lac_tac": 0,
+        "cid": 61,
+        "psc_pci": 0,
+        "band": 800,
+        "arfcn": 6300,
+        "cell_name": "B20 S1 Castelferretti Aeroporto Via Stazione",
+        "azimuth": "",
+        "height": "",
+        "tilt_mech": "",
+        "tilt_el": ""
+      },
+      {
+        "tech": 3,
+        "mcc": 222,
+        "mnc": "01",
+        "lac_tac": 0,
+        "cid": 62,
+        "psc_pci": 0,
+        "band": 800,
+        "arfcn": 6300,
+        "cell_name": "B20 S2 Castelferretti Aeroporto Via Stazione",
+        "azimuth": "",
+        "height": "",
+        "tilt_mech": "",
+        "tilt_el": ""
+      },
+      {
+        "tech": 3,
+        "mcc": 222,
+        "mnc": "01",
+        "lac_tac": 0,
+        "cid": 63,
+        "psc_pci": 0,
+        "band": 800,
+        "arfcn": 6300,
+        "cell_name": "B20 S3 Castelferretti Aeroporto Via Stazione",
+        "azimuth": "",
+        "height": "",
+        "tilt_mech": "",
+        "tilt_el": ""
+      }
+    ]
+  }
+]
